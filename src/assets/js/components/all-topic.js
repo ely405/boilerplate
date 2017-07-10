@@ -5,7 +5,21 @@ const topic = (topicDetails)=>{
     let theme = $('<div class="col-xs-4">'+ topicDetails.content +'</div>');
     let author = $('<div class="col-xs-4">'+ topicDetails.author_name +'</div>');
     let responsesCount = $('<div class="col-xs-4"></div>');
-    let btnResponse = $('<button type="button" class="btn btn-info btn-response" data-id="'+topicDetails.id+'">'+topicDetails.responses_count+' respuestas</button>')
+    let btnResponse = $('<button type="button" class="btn btn-info" data-id="'+topicDetails.id+'" data-toggle="modal" data-target="#show-response">'+topicDetails.responses_count+' respuestas</button>')
+
+    btnResponse.on('click', function(e) {
+        let topicId = $(this).attr('data-id');
+        $.get('https://private-anon-4e39fc48cf-foroapi.apiary-proxy.com/topics/'+topicId+'/responses', (response)=>{
+            state.topicResponses = response;
+        })
+
+        $.get('https://private-anon-4e39fc48cf-foroapi.apiary-proxy.com/topics/'+topicId, (response)=>{
+            state.topicById = response;
+        });
+
+        $('#show-response').html(createShowReponsesModal(state.topicResponses, state.topicById));
+    });
+
     return containerTopic.append(theme, author, responsesCount.append(btnResponse));
 }
 
@@ -23,7 +37,7 @@ const createAllTopic = (topicsList, update)=>{
     filterInp.on('keyup', ()=>{
         reRender(allTopicContainer, filterInp.val());
     })
-    
+
     reRender(allTopicContainer, '');
     header.append(headerTheme, headerAuthor, headerResponse);
     return containerAll.append(title, btnCreate, filterInp, header, allTopicContainer);
@@ -38,7 +52,7 @@ const reRender = (container, filter)=>{
             container.append(t);
         });
     }else{
-    container.append($('<p/>').html('Tema no encontrado'));
-  }
+        container.append($('<p/>').html('Tema no encontrado'));
+    }
 }
 

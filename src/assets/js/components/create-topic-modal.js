@@ -13,7 +13,7 @@ const createTopicModal = (update)=>{
     let messageContainer = $('<div class="form-group"></div>');
     let inpMessage = $('<textarea class="form-control" id="message" placeholder="Ingresa mensaje"></textarea>');
     let btnCreateTopic = $('<button type="submit" class="btn btn-default" id="btn-create" data-dismiss="modal">Crear tema</button>');
-    
+
     form.append(nameContainer.append(inpName), messageContainer.append(inpMessage), btnCreateTopic);
     modalBody.append(btnClose, title, form);
     modalDialog.append(modalContent.append(modalBody));
@@ -30,8 +30,6 @@ const createTopicModal = (update)=>{
         "author_name": $('#name').val(),
         'content': $('#message').val()
     }
-
-
 
     btnCreateTopic.click((e)=>{
         e.preventDefault();

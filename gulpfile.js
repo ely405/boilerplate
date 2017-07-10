@@ -59,12 +59,12 @@ gulp.task('js', ()=>{
                      sources.rootJs + '*/functions.js',
                      sources.rootJs + '*/filter-by-theme.js',
                      sources.rootJs + '*/create-topic-modal.js',
-                     sources.rootJs + '*/create-topic.js',
+                     sources.rootJs + '*/all-topic.js',
                      sources.rootJs + '*/show-responses.js',
                      sources.rootJs+'main.js'])
-        .pipe(jshint())
+        /*.pipe(jshint())
         .pipe(jshint.reporter('default'))
-        .pipe(notify({message: 'JSHints task complete'}))    
+        .pipe(notify({message: 'JSHints task complete'}))    */
         .pipe(babel({presets: 'es2015'}))
         .pipe(concat('bundle.js'))
         .pipe(rename({suffix: '.min'}))
